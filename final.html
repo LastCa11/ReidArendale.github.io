@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Food Unveiled: Your Roadmap to Healthier Bites</title>
+    
+    <style>
+      body{
+        opacity : 0;
+        transition: opacity 2s ease-in-out;
+      }
+      .responsive-image {
+        width: 100%; /* Make the image take up the full width of its container */
+        height: auto; /* Keep the aspect ratio of the image */
+        display: block; /* Display image as a block element */
+        margin: 0 auto; /* Center the image within its container */
+      }
+    </style>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    window.onload = function() {
+      document.body.style.opacity = '1';
+    };
+  </script>
+  <style>
+      /* Add some basic styling to the plot */
+      .scatter-plot {
+          width: 800px;
+          height: 500px;
+          margin: 20px auto;
+      }
+      .dot {
+          fill: steelblue;
+      }
+      .dot:hover {
+          fill: orange;
+      }
+      .axis-label {
+          font-size: 14px;
+      }
+  </style>
+    <header>
+        <h1>Fast Food Unveiled: Your Roadmap to Healthier Bites</h1>
+    </header>
+    <main>
+        <div class="center-content">
+            <h2>What fast food restaurant chains have the best macros: lowest calories, high protein?</h2>
+            <p>Welcome to a quest like no other! My name is Reginald Humphrey, a nutritionist, and I'm on a mission to find out which fast food chain is the healthiest. In a world filled with tasty temptations, we're here to break it down and reveal the top pick for those seeking a balance between protein-packed meals and calorie-conscious choices.
+                
+                I've done the math and analyzed the menus to uncover the truth. Join me as I explore the nutritional values of your favorite fast-food joints. Which one comes out on top in the quest for healthiness?
+                
+                Get ready to rethink your fast food favorites. This journey isn't just about numbers; it's about enjoying your go-to treats with a side of nutritional wisdom. Join me on this adventure, where taste meets better choices, and discover the healthier side of fast food!</p>
+        </div>
+        <img src="https://www.bu.edu/files/2019/02/iStock-871254830.jpg" alt="Fast Food Items" style="width: 100%; height: auto; display: block; margin: 20px auto;">
+        <!-- Placeholder text below the image -->
+        <div class="placeholder-text" style="text-align: center; margin-bottom: 20px;">
+            <p>Average Calories of Fast- Food Items:</p>
+        </div>
+        <div id="chart"></div>
+        <!-- New placeholder text section after the bar graph -->
+        <div class="additional-placeholder" style="text-align: center; margin-top: 20px;">
+            <p>As a nutritionist who has been to all of these restaurants there is a clear path to eating healthy. Eating healthy is a choice and can be attainable anywhere you go! However, making healthy choices is easier at some locations than others. According to the data above, it is harder to go wrong at Chick-fil-A which has the lowest average calories for their menu items. Second being Taco Bell, then Subway, Dairy Queen, and in 5th place, Arby's.</p>  
+          <img src="https://www.uab.edu/news/images/2018/Inside_unhealthy_eating.png" alt="Unhealthy Eating" class="responsive-image">
+          <div class="additional-placeholder" style="text-align: center; margin-top: 20px;">
+              <p>Protein Vs. Calories</p>
+
+            <div class="scatter-plot"></div>
+
+            <script>
+                // Data (40 items, 5 from each of the 8 restaurants)
+
+                const data = [
+                    // Restaurant A
+                    { restaurant: 'Mcdonalds', item: 'Item 1', protein: 30, calories: 250 },
+                    { restaurant: 'Mcdonalds', item: 'Item 2', protein: 25, calories: 300 },
+                    { restaurant: 'Mcdonalds', item: 'Item 3', protein: 28, calories: 270 },
+                    { restaurant: 'Mcdonalds', item: 'Item 4', protein: 32, calories: 230 },
+                    { restaurant: 'Mcdonalds', item: 'Item 5', protein: 35, calories: 220 },
+
+                    // Restaurant B
+                    { restaurant: 'Dairy Queen', item: 'Item 1', protein: 33, calories: 240 },
+                    { restaurant: 'Restaurant B', item: 'Item 2', protein: 29, calories: 280 },
+                    { restaurant: 'Restaurant B', item: 'Item 3', protein: 31, calories: 260 },
+                    { restaurant: 'Restaurant B', item: 'Item 4', protein: 36, calories: 210 },
+                    { restaurant: 'Restaurant B', item: 'Item 5', protein: 34, calories: 230 },
+
+                    // Restaurant C
+                    { restaurant: 'Restaurant C', item: 'Item 1', protein: 29, calories: 260 },
+                    { restaurant: 'Restaurant C', item: 'Item 2', protein: 24, calories: 320 },
+                    { restaurant: 'Restaurant C', item: 'Item 3', protein: 27, calories: 280 },
+                    { restaurant: 'Restaurant C', item: 'Item 4', protein: 33, calories: 240 },
+                    { restaurant: 'Restaurant C', item: 'Item 5', protein: 31, calories: 250 },
+
+                    // Restaurant D
+                    { restaurant: 'Restaurant D', item: 'Item 1', protein: 28, calories: 270 },
+                    { restaurant: 'Restaurant D', item: 'Item 2', protein: 30, calories: 250 },
+                    { restaurant: 'Restaurant D', item: 'Item 3', protein: 26, calories: 290 },
+                    { restaurant: 'Restaurant D', item: 'Item 4', protein: 32, calories: 230 },
+                    { restaurant: 'Restaurant D', item: 'Item 5', protein: 35, calories: 220 },
+
+                    // Restaurant E
+                    { restaurant: 'Restaurant E', item: 'Item 1', protein: 31, calories: 260 },
+                    { restaurant: 'Restaurant E', item: 'Item 2', protein: 29, calories: 280 },
+                    { restaurant: 'Restaurant E', item: 'Item 3', protein: 28, calories: 270 },
+                    { restaurant: 'Restaurant E', item: 'Item 4', protein: 36, calories: 210 },
+                    { restaurant: 'Restaurant E', item: 'Item 5', protein: 34, calories: 230 },
+
+                    // Restaurant F
+                    { restaurant: 'Restaurant F', item: 'Item 1', protein: 32, calories: 250 },
+                    { restaurant: 'Restaurant F', item: 'Item 2', protein: 26, calories: 290 },
+                    { restaurant: 'Restaurant F', item: 'Item 3', protein: 30, calories: 250 },
+                    { restaurant: 'Restaurant F', item: 'Item 4', protein: 33, calories: 240 },
+                    { restaurant: 'Restaurant F', item: 'Item 5', protein: 31, calories: 260 },
+
+                    // Restaurant G
+                    { restaurant: 'Restaurant G', item: 'Item 1', protein: 33, calories: 240 },
+                    { restaurant: 'Restaurant G', item: 'Item 2', protein: 27, calories: 280 },
+                    { restaurant: 'Restaurant G', item: 'Item 3', protein: 29, calories: 260 },
+                    { restaurant: 'Restaurant G', item: 'Item 4', protein: 32, calories: 230 },
+                    { restaurant: 'Restaurant G', item: 'Item 5', protein: 35, calories: 220 },
+
+                    // Restaurant H
+                    { restaurant: 'Restaurant H', item: 'Item 1', protein: 30, calories: 250 },
+                    { restaurant: 'Restaurant H', item: 'Item 2', protein: 28, calories: 270 },
+                    { restaurant: 'Restaurant H', item: 'Item 3', protein: 31, calories: 260 },
+                    { restaurant: 'Restaurant H', item: 'Item 4', protein: 33, calories: 240 },
+                    { restaurant: 'Restaurant H', item: 'Item 5', protein: 34, calories: 230 },
+                ];
+
+                // Create SVG container
+                const svg = d3.select(".scatter-plot")
+                    .append("svg")
+                    .attr("width", 800)
+                    .attr("height", 500);
+
+                // Set margins and dimensions
+                const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+                const width = 800 - margin.left - margin.right;
+                const height = 500 - margin.top - margin.bottom;
+
+                // Create scales
+                const xScale = d3.scaleLinear().domain([20, 40]).range([0, width]);
+                const yScale = d3.scaleLinear().domain([200, 350]).range([height, 0]);
+
+                // Create axes
+                const xAxis = d3.axisBottom(xScale).tickSize(0);
+                const yAxis = d3.axisLeft(yScale).tickSize(0);
+
+                // Create tooltip
+                const tooltip = d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+
+                // Add x-axis
+                svg.append("g")
+                    .attr("class", "x-axis")
+                    .attr("transform", `translate(${margin.left}, ${height + margin.top})`)
+                    .call(xAxis)
+                    .append("text")
+                    .attr("class", "axis-label")
+                    .attr("x", width / 2)
+                    .attr("y", 40)
+                    .text("Protein (g)");
+
+                // Add y-axis
+                svg.append("g")
+                    .attr("class", "y-axis")
+                    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+                    .call(yAxis)
+                    .append("text")
+                    .attr("class", "axis-label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("x", -height / 2)
+                    .attr("y", -margin.left + 20)
+                    .text("Calories");
+
+                // Add data points
+                svg.selectAll(".dot")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("class", "dot")
+                    .attr("cx", d => xScale(d.protein) + margin.left)
+                    .attr("cy", d => yScale(d.calories) + margin.top)
+                    .attr("r", 5)
+                    .on("mouseover", d => {
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", 0.9);
+                        tooltip.html(`${d.restaurant}<br>${d.item}<br>Protein: ${d.protein}g<br>Calories: ${d.calories}`)
+                            .style("left", (d3.event.pageX + 5) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", d => {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
+
+            </script>
+
+              <p>In our quest to identify the healthiest restaurant options, we've delved into the nutritional data of several popular establishments. As a dedicated nutritionist, I can confidently conclude that Chick-fil-A emerges as a standout choice for those seeking a harmonious balance between high protein content and lower calorie intake.
+
+              Chick-fil-A's commitment to offering nourishing and delicious menu items is evident in our analysis. Among the numerous options available, Chick-fil-A consistently ranks as one of the healthiest choices, and here's why:
+
+              Protein-Packed Selections: Chick-fil-A's menu boasts an array of protein-rich options, making it an ideal choice for individuals looking to meet their protein needs. From grilled chicken sandwiches to grilled nuggets, the variety of choices allows customers to enjoy a hearty meal while maintaining a health-conscious approach.
+
+              Calorie-Conscious Offerings: Despite its reputation for flavorful offerings, Chick-fil-A is distinguished by its commitment to minimizing unnecessary calories. Carefully prepared menu items and conscious portion control ensure that customers can enjoy satisfying meals without excessive calorie intake.
+
+              Balanced and Wholesome Choices: Chick-fil-A emphasizes the use of quality ingredients, including fresh vegetables and lean proteins. This commitment to quality nutrition means that diners can feel confident that they are making a wholesome choice when selecting Chick-fil-A as their dining destination.
+
+              Transparent Nutritional Information: Chick-fil-A provides transparent nutritional information, allowing customers to make informed choices that align with their dietary goals. This level of transparency empowers individuals to tailor their meals to their specific nutritional needs.
+
+              In conclusion, Chick-fil-A stands out as a restaurant that prioritizes both flavor and nutrition. As a nutritionist, I wholeheartedly recommend Chick-fil-A for those seeking a balance between high protein content and lower calorie intake without compromising on taste. Remember, making mindful choices when dining out is a key step toward achieving your health and wellness goals, and Chick-fil-A makes it easier than ever to do just that. Enjoy your nutritious journey!</p>
+          </div>
+        </div>
+    </main>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="script.js"></script>
+  
+
+</body>
+</html>

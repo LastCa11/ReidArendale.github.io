@@ -1,0 +1,53 @@
+﻿body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.center-content {
+  text-align: center; /* Center-align text within this div */
+}
+
+h1 {
+  color: #ffffff;
+}
+h2 {
+  color: #333;
+}
+p {
+  line-height: 1.6;
+  color: #666;
+}
+
+#chart {
+  margin: 20px auto; /* Center-align the graph */
+}
+/* ... existing CSS rules ... */
+
+#page-wrapper {
+  display: none; /* Initially hide the wrapper */
+  background-color: white; /* Initial white background */
+  animation: fadeIn 2s ease forwards; /* Fade-in effect */
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; display: block; }
+  100% { opacity: 1; }
+}
